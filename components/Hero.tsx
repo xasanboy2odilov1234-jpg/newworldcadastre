@@ -133,15 +133,15 @@ export default function Hero() {
   return (
     <section
       aria-label="New World Cadastre"
-      className="relative min-h-screen bg-cadastre-white"
+      className="relative min-h-[40vh] sm:min-h-[60vh] md:min-h-screen bg-cadastre-white pt-20 md:pt-0 flex items-center"
     >
       <div className="absolute inset-0 z-0">
-      <img 
+        <img 
           src="/hero.jpg" 
           alt="Кадастровые работы" 
-          className="w-full h-full object-cover object-left md:object-center"
+          className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-black/40" /> {/* Затемнение для красоты */}
+        <div className="absolute inset-0 bg-black/40" />
       </div>
  
       <h1 className="sr-only">New World Cadastre</h1>

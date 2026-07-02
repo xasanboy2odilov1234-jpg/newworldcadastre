@@ -136,10 +136,10 @@ export default function Hero() {
       className="relative min-h-screen bg-cadastre-white"
     >
       <div className="absolute inset-0 z-0">
-        <img 
+      <img 
           src="/hero.jpg" 
           alt="Кадастровые работы" 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-left md:object-center"
         />
         <div className="absolute inset-0 bg-black/40" /> {/* Затемнение для красоты */}
       </div>

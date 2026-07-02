@@ -24,20 +24,18 @@ export default function Navigation() {
         
         {/* Левая часть: Родное Логотип-изображение + Адаптивный Текст */}
         <Link href="/" className="flex items-center gap-2 md:gap-4 transition-opacity hover:opacity-80 shrink-0">
-          {/* Твоя круглая эмблема с тахеометром и палочкой */}
           <img 
             src="/logo.png" 
             alt="New World Cadastre Logo" 
             className="h-12 sm:h-16 md:h-20 w-auto object-contain mix-blend-multiply shrink-0" 
           />
 
-          {/* Адаптивная текстовая надпись справа */}
           <div className="flex flex-col justify-center">
-            <span className="text-blue-900 font-black text-base sm:text-xl md:text-2xl lg:text-3xl leading-none tracking-wide whitespace-nowrap">
+            <span className="text-blue-900 font-black text-sm sm:text-lg md:text-xl lg:text-2xl leading-none tracking-wide whitespace-nowrap">
               NEW WORLD
             </span>
             <span 
-              className="font-bold text-xs sm:text-sm md:text-base lg:text-xl leading-none tracking-[0.2em] uppercase mt-1 whitespace-nowrap"
+              className="font-bold text-[10px] sm:text-xs md:text-sm lg:text-base leading-none tracking-[0.2em] uppercase mt-1 whitespace-nowrap"
               style={{ color: '#D4AF37' }}
             >
               CADASTRE
@@ -45,8 +43,8 @@ export default function Navigation() {
           </div>
         </Link>
 
-        {/* Центральная часть: Меню — теперь скрывается на планшетах (lg вместо md) */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 shrink-0">
+        {/* Центральная часть: Меню — показывается ТОЛЬКО на больших экранах (xl) */}
+        <nav className="hidden xl:flex items-center gap-6 shrink-0">
           <Link href="#services" className="text-gray-700 hover:text-blue-600 font-medium transition whitespace-nowrap">
             Услуги
           </Link>
@@ -62,16 +60,24 @@ export default function Navigation() {
         </nav>
 
         {/* Правая часть: Переключатель языков и кнопка "Связаться" */}
-        <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-          <div className="flex items-center gap-1 text-sm font-semibold">
+        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+          <div className="flex items-center gap-1 text-xs sm:text-sm font-semibold">
             <span className="text-gray-400 cursor-pointer hover:text-gray-600">UZ</span>
             <span className="text-gray-300">|</span>
             <span className="text-blue-600 cursor-pointer">RU</span>
           </div>
           
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-medium transition shadow-sm whitespace-nowrap">
+          {/* Кнопка скрывается на планшетах, уступая место бургер-иконке */}
+          <button className="hidden sm:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition shadow-sm whitespace-nowrap">
             Связаться
           </button>
+
+          {/* Иконка бургер-меню для мобилок и планшетов (до xl) */}
+          <div className="xl:hidden text-gray-700 cursor-pointer p-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </div>
         </div>
 
       </div>

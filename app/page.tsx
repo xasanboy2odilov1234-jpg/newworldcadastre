@@ -2,7 +2,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import Portfolio from "@/components/Portfolio";
-// import Process from "@/components/Process"; // Раскомментируем, когда создадим файл
+import Process from "@/components/Process"; // <--- 1. Должно быть раскомментировано
 import Certificates from "@/components/Certificates";
 import Gallery from "@/components/Gallery";
 import Reviews from "@/components/Reviews";
@@ -15,29 +15,15 @@ export default function Home() {
     <main className="flex min-h-screen flex-col bg-white">
       <Navigation />
       <Hero />
-      
-      {/* 1. Цифры и факты */}
       <Stats />
-      
-      {/* 2. Завершенные проекты */}
       <Portfolio />
-
-      {/* 3. Процесс работы (будет здесь) */}
-      {/* <Process /> */}
-
-      {/* 4. Лицензии и сертификаты */}
+      
+      <Process /> {/* <--- 2. Здесь должен быть вызов */}
+      
       <Certificates />
-
-      {/* 5. Сотрудники */}
-      {/* <Team /> */}
-
-      {/* 6. Отзывы */}
+      <Gallery />
       <Reviews />
-
-      {/* 7. Частые вопросы */}
       <FAQ />
-
-      {/* 8. Контакты */}
       <ContactForm />
       <Contacts />
     </main>

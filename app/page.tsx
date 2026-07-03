@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import Portfolio from "@/components/Portfolio";
+// import Process from "@/components/Process"; // Раскомментируем, когда создадим файл
 import Certificates from "@/components/Certificates";
 import Gallery from "@/components/Gallery";
 import Reviews from "@/components/Reviews";
@@ -18,16 +19,16 @@ export default function Home() {
       {/* 1. Цифры и факты */}
       <Stats />
       
-      {/* 2. Процесс работы (Создадим файл позже) */}
-      {/* <Process /> */}
-
-      {/* 3. Завершенные проекты */}
+      {/* 2. Завершенные проекты */}
       <Portfolio />
+
+      {/* 3. Процесс работы (будет здесь) */}
+      {/* <Process /> */}
 
       {/* 4. Лицензии и сертификаты */}
       <Certificates />
 
-      {/* 5. Сотрудники (Создадим файл позже) */}
+      {/* 5. Сотрудники */}
       {/* <Team /> */}
 
       {/* 6. Отзывы */}

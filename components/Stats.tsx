@@ -99,15 +99,15 @@ export default function Stats() {
           {/* Блок 100% с матовым затемненным фоном */}
           <motion.div variants={itemVariants} className="relative overflow-hidden rounded-[2rem] shadow-lg flex flex-col justify-center lg:col-span-2 lg:flex-row lg:items-center lg:justify-between p-6 sm:p-8 group bg-gray-950">
             
-            {/* Фоновое фото */}
+            {/* Фоновое фото — подняли видимость до 55% */}
             <img 
               src="/guarantee-bg.jpg" 
               alt="Гарантия результата и документы"
-              className="absolute inset-0 w-full h-full object-cover opacity-25 transition-transform duration-700 group-hover:scale-105" 
+              className="absolute inset-0 w-full h-full object-cover opacity-55 transition-transform duration-700 group-hover:scale-105" 
             />
             
-            {/* Матовый слой: глубокий темный цвет */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-900/60 backdrop-blur-[1px]" />
+            {/* Матовый слой — сделали градиент гораздо прозрачнее (opacity 40% и 20% вместо 95%) */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-slate-950/20 to-transparent backdrop-blur-[1px]" />
             
             {/* Контент слева */}
             <div className="relative z-10">

@@ -96,15 +96,29 @@ export default function Stats() {
             </p>
           </motion.div>
 
-          {/* Блок 100% */}
-          <motion.div variants={itemVariants} className="bg-blue-50/50 rounded-[2rem] shadow-inner border border-blue-100 p-6 sm:p-8 flex flex-col justify-center lg:col-span-2 lg:flex-row lg:items-center lg:justify-between group hover:bg-blue-50 transition-colors duration-300">
-            <div>
+          {/* Блок 100% с матовым затемненным фоном */}
+          <motion.div variants={itemVariants} className="relative overflow-hidden rounded-[2rem] shadow-lg flex flex-col justify-center lg:col-span-2 lg:flex-row lg:items-center lg:justify-between p-6 sm:p-8 group bg-gray-950">
+            
+            {/* Фоновое фото */}
+            <img 
+              src="/guarantee-bg.jpg" 
+              alt="Гарантия результата и документы"
+              className="absolute inset-0 w-full h-full object-cover opacity-25 transition-transform duration-700 group-hover:scale-105" 
+            />
+            
+            {/* Матовый слой: глубокий темный цвет */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-900/60 backdrop-blur-[1px]" />
+            
+            {/* Контент слева */}
+            <div className="relative z-10">
               <div className="text-5xl font-black mb-2" style={{ color: '#D4AF37' }}>100%</div>
-              <div className="text-base sm:text-lg font-bold uppercase text-blue-900 tracking-wider">
+              <div className="text-base sm:text-lg font-bold uppercase text-white tracking-wider">
                 Гарантия результата
               </div>
             </div>
-            <p className="text-gray-600 mt-4 lg:mt-0 lg:max-w-sm lg:text-right text-sm sm:text-base">
+
+            {/* Текст справа */}
+            <p className="relative z-10 text-white/75 mt-4 lg:mt-0 lg:max-w-sm lg:text-right text-sm sm:text-base font-medium">
               Мы доводим каждое дело до конца. Полное юридическое сопровождение вплоть до получения документов на руки.
             </p>
           </motion.div>

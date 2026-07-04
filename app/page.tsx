@@ -5,7 +5,6 @@ import Portfolio from "@/components/Portfolio";
 import Process from "@/components/Process"; // <--- 1. Должно быть раскомментировано
 import Certificates from "@/components/Certificates";
 import Gallery from "@/components/Gallery";
-import Reviews from "@/components/Reviews";
 import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
 import Contacts from "@/components/Contacts";
@@ -22,7 +21,7 @@ export default function Home() {
       
       <Certificates />
       <Gallery />
-      <Reviews />
+     
       <FAQ />
       <ContactForm />
       <Contacts />

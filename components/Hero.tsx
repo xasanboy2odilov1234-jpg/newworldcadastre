@@ -1,20 +1,10 @@
 "use client";
 
-import {
-  LayoutGroup,
-  motion,
-  useReducedMotion,
-  type Transition,
-} from "framer-motion";
+import { motion, useReducedMotion, type Transition } from "framer-motion";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const EASE = [0.4, 0, 0.2, 1] as const;
-
-const BRAND_LINES = ["NEW", "WORLD", "CADASTRE"] as const;
-
-const LARGE_CIRCLE = 192;
-const SMALL_CIRCLE = 96;
-
 type Phase = "reveal" | "compose" | "header";
 
 const motionTransition = (duration: number, reduced: boolean): Transition =>
@@ -32,23 +22,10 @@ const STROKE_PATHS = [
   { type: "path" as const, d: "M8.5 16.5L12 13L15.5 16.5", delay: 0.85 },
 ] as const;
 
-function TachymeterDraw({
-  active,
-  reduced,
-  className,
-}: {
-  active: boolean;
-  reduced: boolean;
-  className?: string;
-}) {
+function TachymeterDraw({ active, reduced, className }: { active: boolean; reduced: boolean; className?: string }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      aria-hidden="true"
-      className={className}
-    >
-      {STROKE_PATHS.map((item) => {
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
+      {STROKE_PATHS.map((item, idx) => {
         const key = item.type === "circle" ? "ring" : item.d;
         const shared = {
           stroke: "currentColor",
@@ -59,24 +36,15 @@ function TachymeterDraw({
           initial: { pathLength: 0, opacity: 0 },
           animate: {
             pathLength: active ? 1 : 0,
-            opacity: active
-              ? item.type === "path" && "faint" in item && item.faint
-                ? 0.35
-                : 1
-              : 0,
+            opacity: active ? (item.type === "path" && "faint" in item && item.faint ? 0.35 : 1) : 0,
           },
-          transition: reduced
-            ? { duration: 0.01 }
-            : { duration: 0.45, ease: EASE, delay: item.delay },
+          transition: reduced ? { duration: 0.01 } : { duration: 0.45, ease: EASE, delay: item.delay },
         };
-
-        if (item.type === "circle") {
-          return (
-            <motion.circle key={key} cx="12" cy="13" r="8" {...shared} />
-          );
-        }
-
-        return <motion.path key={key} d={item.d} {...shared} />;
+        return item.type === "circle" ? (
+          <motion.circle key={idx} cx="12" cy="13" r="8" {...shared} />
+        ) : (
+          <motion.path key={idx} d={item.d} {...shared} />
+        );
       })}
       <motion.circle
         cx="12"
@@ -84,15 +52,8 @@ function TachymeterDraw({
         r="1.25"
         fill="currentColor"
         initial={{ opacity: 0, scale: 0 }}
-        animate={{
-          opacity: active ? 1 : 0,
-          scale: active ? 1 : 0,
-        }}
-        transition={
-          reduced
-            ? { duration: 0.01 }
-            : { duration: 0.25, ease: EASE, delay: 1.05 }
-        }
+        animate={{ opacity: active ? 1 : 0, scale: active ? 1 : 0 }}
+        transition={reduced ? { duration: 0.01 } : { duration: 0.25, ease: EASE, delay: 1.05 }}
       />
     </svg>
   );
@@ -107,10 +68,9 @@ export default function Hero() {
 
   useEffect(() => {
     if (reduced) return;
-
     const drawTimer = window.setTimeout(() => setDrawIcon(true), 320);
     const composeTimer = window.setTimeout(() => setPhase("compose"), 1250);
-    const headerTimer = window.setTimeout(() => setPhase("header"), 1250 + 1500);
+    const headerTimer = window.setTimeout(() => setPhase("header"), 2200);
 
     return () => {
       window.clearTimeout(drawTimer);
@@ -119,32 +79,119 @@ export default function Hero() {
     };
   }, [reduced]);
 
-  const isReveal = phase === "reveal";
-  const isCompose = phase === "compose";
   const isHeader = phase === "header";
-  const showBrandRow = isCompose || isHeader;
-
-  const circleSize = isReveal ? LARGE_CIRCLE : SMALL_CIRCLE;
-
-  const wrapperTransition = motionTransition(isHeader ? 0.7 : isCompose ? 1.5 : 0.55, reduced);
-
-  const composeTransition = motionTransition(1.5, reduced);
 
   return (
     <section
       aria-label="New World Cadastre"
-      className="relative min-h-[40vh] sm:min-h-[60vh] md:min-h-screen bg-cadastre-white pt-20 md:pt-0 flex items-center"
+      className="relative w-full h-[100svh] flex flex-col justify-center overflow-hidden bg-black"
     >
+      {/* Задний фон: Твое фото тахеометра */}
       <div className="absolute inset-0 z-0">
         <img 
           src="/hero.jpg" 
           alt="Кадастровые работы" 
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-center scale-[1.02] transition-transform duration-1000"
         />
-        <div className="absolute inset-0 bg-black/40" />
+        {/* Премиальный темный градиент для идеальной читаемости текста на любых экранах */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/85 z-10" />
       </div>
- 
-      <h1 className="sr-only">New World Cadastre</h1>
+
+      {/* Основной контент */}
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col justify-center h-full pt-16">
+        
+        {/* Блок с контентом, который плавно появляется после анимации логотипы */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: isHeader ? 1 : 0, y: isHeader ? 0 : 30 }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="max-w-3xl"
+        >
+          {/* Золотой бейджик сверху (как в Kapadokya) */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#D4AF37]/40 bg-black/40 backdrop-blur-md mb-6 sm:mb-8">
+            {/* Твой кастомный интерактивный тахеометр теперь встроен прямо в бейджик доверия */}
+            <TachymeterDraw active={drawIcon} reduced={reduced} className="w-5 h-5 text-[#D4AF37]" />
+            <span className="text-[#D4AF37] text-xs sm:text-sm font-black uppercase tracking-widest pl-1">
+              Гарантия результата
+            </span>
+          </div>
+
+          {/* Мощный заголовок */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] mb-6 tracking-tight uppercase">
+            Точность, создающая <br />
+            <span style={{ color: '#D4AF37' }}>уверенность</span>
+          </h1>
+
+          {/* Описание корпорации / услуг */}
+          <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mb-8 sm:mb-12 font-medium leading-relaxed">
+            Полный цикл кадастровых услуг и геодезических изысканий в Узбекистане. Официально фиксируем сроки и стоимость в договоре, берем на себя все согласования с госорганами.
+          </p>
+
+          {/* Кнопки перемещения по сайту (Решает проблему длинного скролла на смартфонах) */}
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <Link 
+              href="#services" 
+              className="w-full sm:w-auto text-center bg-[#D4AF37] hover:bg-[#bfa232] text-black px-8 py-4 rounded-2xl font-bold uppercase tracking-wider transition-all duration-300 shadow-[0_4px_20px_rgba(212,175,55,0.25)] hover:shadow-[0_4px_25px_rgba(212,175,55,0.4)]"
+            >
+              Открыть услуги
+            </Link>
+            
+            <Link 
+              href="#portfolio" 
+              className="w-full sm:w-auto text-center bg-transparent border-2 border-white/60 hover:border-white text-white hover:bg-white/10 px-8 py-4 rounded-2xl font-bold uppercase tracking-wider transition-all duration-300 backdrop-blur-sm"
+            >
+              Смотреть галерею
+            </Link>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Нижняя информационная статус-панель (Адаптировано под MacBook, iPad и iPhone) */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isHeader ? 1 : 0 }}
+        transition={{ duration: 1, delay: 0.4 }}
+        className="absolute bottom-0 left-0 w-full z-20 bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-16 pb-8 px-4 sm:px-6 lg:px-8 hidden sm:block"
+      >
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-start gap-x-12 gap-y-4 border-t border-white/10 pt-6">
+          
+          {/* Локация */}
+          <div className="flex items-center gap-2.5 group">
+            <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-[#D4AF37]">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <span className="text-gray-300 font-bold text-sm tracking-wide">Ташкент, Узбекистан</span>
+          </div>
+
+          {/* График работы */}
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-[#D4AF37]">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <span className="text-gray-300 font-bold text-sm tracking-wide">Пн - Пт · 9:00 – 18:00</span>
+          </div>
+
+          {/* Экспертность */}
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-white/5 border border-white/10 text-[#D4AF37]">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+            </div>
+            <span className="text-white font-black text-sm uppercase tracking-wider">Опыт работы более 10 лет</span>
+          </div>
+
+        </div>
+      </motion.div>
     </section>
   );
 }

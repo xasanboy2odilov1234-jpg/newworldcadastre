@@ -25,13 +25,13 @@ export default function Gallery() {
           </p>
         </motion.div>
 
-        {/* Большой видеоплеер с автоплеем и ссылкой */}
+        {/* Большой видеоплеер с автоплеем и полностью прозрачной ссылкой */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl group bg-black border-4 border-white"
+          className="relative w-full aspect-video rounded-[2rem] overflow-hidden shadow-2xl bg-black border-4 border-white"
         >
           <iframe
             className="absolute top-0 left-0 w-full h-full pointer-events-none scale-[1.02]"
@@ -40,22 +40,13 @@ export default function Gallery() {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           ></iframe>
 
-          {/* Невидимая кнопка поверх видео */}
+          {/* Абсолютно чистая, невидимая кликабельная область поверх видео */}
           <a
             href={`https://www.youtube.com/watch?v=${videoId}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/50 transition-all duration-500 flex flex-col items-center justify-center z-10 cursor-pointer"
-          >
-            {/* Анимация при наведении - оставили только иконку Play */}
-            <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 flex flex-col items-center">
-              <div className="w-20 h-20 bg-[#FF0000] rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(255,0,0,0.5)]">
-                <svg className="w-10 h-10 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
-          </a>
+            className="absolute inset-0 z-10 cursor-pointer"
+          ></a>
         </motion.div>
 
       </div>

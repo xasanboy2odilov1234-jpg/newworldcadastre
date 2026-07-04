@@ -47,12 +47,9 @@ const faqs = [
 ];
 
 export default function FAQ() {
-  // Состояние для открытого вопроса (хранит индекс)
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  // Состояние для показа всех вопросов
   const [showAll, setShowAll] = useState(false);
 
-  // Определяем, сколько вопросов показывать
   const displayedFaqs = showAll ? faqs : faqs.slice(0, 3);
 
   const toggleFAQ = (index: number) => {
@@ -63,7 +60,6 @@ export default function FAQ() {
     <section id="faq" className="py-24 bg-white px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         
-        {/* Заголовок */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -79,7 +75,6 @@ export default function FAQ() {
           </p>
         </motion.div>
 
-        {/* Список вопросов */}
         <div className="space-y-4">
           <AnimatePresence initial={false}>
             {displayedFaqs.map((faq, index) => (
@@ -99,7 +94,6 @@ export default function FAQ() {
                     {faq.question}
                   </span>
                   
-                  {/* Иконка стрелочки вместо плюсика */}
                   <motion.div
                     animate={{ rotate: openIndex === index ? 180 : 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -111,7 +105,6 @@ export default function FAQ() {
                   </motion.div>
                 </button>
 
-                {/* Выпадающий ответ */}
                 <AnimatePresence>
                   {openIndex === index && (
                     <motion.div
@@ -131,28 +124,31 @@ export default function FAQ() {
           </AnimatePresence>
         </div>
 
-        {/* Кнопка "Показать все" */}
-        {!showAll && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="mt-12 flex justify-center"
+        {/* Обновленная Кнопка "Показать все / Скрыть" */}
+        <motion.div 
+          layout
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mt-12 flex justify-center"
+        >
+          <button
+            onClick={() => {
+              setShowAll(!showAll);
+              if (showAll) setOpenIndex(null); // Закрываем открытый вопрос при сворачивании списка
+            }}
+            className="group flex items-center gap-3 px-8 py-4 bg-white border-2 border-blue-900 text-blue-900 rounded-full font-bold uppercase tracking-wider hover:bg-blue-900 hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg"
           >
-            <button
-              onClick={() => setShowAll(true)}
-              className="group flex items-center gap-3 px-8 py-4 bg-white border-2 border-blue-900 text-blue-900 rounded-full font-bold uppercase tracking-wider hover:bg-blue-900 hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg"
+            {showAll ? "Скрыть вопросы" : "Показать все вопросы"}
+            <motion.svg 
+              animate={{ rotate: showAll ? 180 : 0 }}
+              className="w-5 h-5 transition-transform duration-300" 
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
             >
-              Показать все вопросы
-              <svg 
-                className="w-5 h-5 transition-transform duration-300 group-hover:translate-y-1" 
-                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </motion.div>
-        )}
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+            </motion.svg>
+          </button>
+        </motion.div>
 
       </div>
     </section>

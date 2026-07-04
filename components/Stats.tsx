@@ -49,26 +49,25 @@ export default function Stats() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-[220px] sm:auto-rows-[250px]"
         >
-          {/* Главный блок (10+ лет) с матовым затемненным фоном */}
+          {/* 1. Блок (10+ лет) — КОМПРОМИССНЫЙ ВАРИАНТ (светлее) */}
           <motion.div variants={itemVariants} className="relative overflow-hidden rounded-[2rem] shadow-lg lg:col-span-2 flex flex-col justify-end p-6 sm:p-8 group bg-gray-950">
             
-            {/* Само фото с новым именем и оптимизированной прозрачностью */}
+            {/* Проявили фото до 50% */}
             <img 
               src="/stats-bg.jpg" 
               alt="Кадастровые замеры"
-              className="absolute inset-0 w-full h-full object-cover opacity-30 transition-transform duration-700 group-hover:scale-105" 
+              className="absolute inset-0 w-full h-full object-cover opacity-50 transition-transform duration-700 group-hover:scale-105" 
             />
             
-            {/* Матовый слой: глубокий темный цвет + легкое размытие заднего плана */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-900/40 backdrop-blur-[2px]" />
+            {/* Ослабили матовость и пустили снизу вверх */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent backdrop-blur-[1px]" />
             
-            {/* Контент, который теперь идеально читается */}
             <div className="relative z-10">
               <div className="text-6xl md:text-7xl font-black text-white mb-1 drop-shadow-md">10+</div>
               <div className="text-lg md:text-xl font-bold uppercase tracking-widest drop-shadow-md" style={{ color: '#D4AF37' }}>
                 Лет на рынке
               </div>
-              <p className="text-white/75 mt-2 max-w-md text-sm sm:text-base hidden sm:block font-medium">
+              <p className="text-white/85 mt-2 max-w-md text-sm sm:text-base hidden sm:block font-medium drop-shadow-sm">
                 Глубокая экспертиза в геодезии и кадастровых работах любой сложности.
               </p>
             </div>
@@ -96,29 +95,27 @@ export default function Stats() {
             </p>
           </motion.div>
 
-          {/* Блок 100% с матовым затемненным фоном */}
-          <motion.div variants={itemVariants} className="relative overflow-hidden rounded-[2rem] shadow-lg flex flex-col justify-center lg:col-span-2 lg:flex-row lg:items-center lg:justify-between p-6 sm:p-8 group bg-gray-950">
+          {/* 4. Блок 100% — ПОДТЯНУЛИ ПОД ОБЩИЙ СТИЛЬ */}
+          <motion.div variants={itemVariants} className="relative overflow-hidden rounded-[2rem] shadow-lg flex flex-col justify-end lg:col-span-2 lg:flex-row lg:items-center lg:justify-between p-6 sm:p-8 group bg-gray-950">
             
-            {/* Фоновое фото — подняли видимость до 55% */}
+            {/* Оставили сочную видимость 55% */}
             <img 
               src="/guarantee-bg.jpg" 
               alt="Гарантия результата и документы"
               className="absolute inset-0 w-full h-full object-cover opacity-55 transition-transform duration-700 group-hover:scale-105" 
             />
             
-            {/* Матовый слой — сделали градиент гораздо прозрачнее (opacity 40% и 20% вместо 95%) */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-slate-950/20 to-transparent backdrop-blur-[1px]" />
+            {/* Сделали такой же мягкий градиент снизу вверх */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent backdrop-blur-[1px]" />
             
-            {/* Контент слева */}
             <div className="relative z-10">
               <div className="text-5xl font-black mb-2" style={{ color: '#D4AF37' }}>100%</div>
-              <div className="text-base sm:text-lg font-bold uppercase text-white tracking-wider">
+              <div className="text-base sm:text-lg font-bold uppercase text-white tracking-wider drop-shadow-md">
                 Гарантия результата
               </div>
             </div>
 
-            {/* Текст справа */}
-            <p className="relative z-10 text-white/75 mt-4 lg:mt-0 lg:max-w-sm lg:text-right text-sm sm:text-base font-medium">
+            <p className="relative z-10 text-white/85 mt-4 lg:mt-0 lg:max-w-sm lg:text-right text-sm sm:text-base font-medium drop-shadow-sm">
               Мы доводим каждое дело до конца. Полное юридическое сопровождение вплоть до получения документов на руки.
             </p>
           </motion.div>

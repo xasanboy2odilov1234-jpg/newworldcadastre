@@ -49,21 +49,26 @@ export default function Stats() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 auto-rows-[220px] sm:auto-rows-[250px]"
         >
-          {/* Главный блок (10+ лет) */}
-          <motion.div variants={itemVariants} className="relative overflow-hidden rounded-[2rem] shadow-lg lg:col-span-2 flex flex-col justify-end p-6 sm:p-8 group">
-            <img 
-              src="https://images.unsplash.com/photo-1541888086425-d81bb19240f5?auto=format&fit=crop&q=80&w=1000" 
-              alt="Опыт работы"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/95 via-blue-900/50 to-transparent" />
+          {/* Главный блок (10+ лет) с матовым затемненным фоном */}
+          <motion.div variants={itemVariants} className="relative overflow-hidden rounded-[2rem] shadow-lg lg:col-span-2 flex flex-col justify-end p-6 sm:p-8 group bg-gray-950">
             
+            {/* Само фото с новым именем и оптимизированной прозрачностью */}
+            <img 
+              src="/stats-bg.jpg" 
+              alt="Кадастровые замеры"
+              className="absolute inset-0 w-full h-full object-cover opacity-30 transition-transform duration-700 group-hover:scale-105" 
+            />
+            
+            {/* Матовый слой: глубокий темный цвет + легкое размытие заднего плана */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-900/40 backdrop-blur-[2px]" />
+            
+            {/* Контент, который теперь идеально читается */}
             <div className="relative z-10">
               <div className="text-6xl md:text-7xl font-black text-white mb-1 drop-shadow-md">10+</div>
               <div className="text-lg md:text-xl font-bold uppercase tracking-widest drop-shadow-md" style={{ color: '#D4AF37' }}>
                 Лет на рынке
               </div>
-              <p className="text-white/80 mt-2 max-w-md text-sm sm:text-base hidden sm:block">
+              <p className="text-white/75 mt-2 max-w-md text-sm sm:text-base hidden sm:block font-medium">
                 Глубокая экспертиза в геодезии и кадастровых работах любой сложности.
               </p>
             </div>

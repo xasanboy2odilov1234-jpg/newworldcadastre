@@ -124,7 +124,6 @@ export default function FAQ() {
           </AnimatePresence>
         </div>
 
-        {/* Обновленная Кнопка "Показать все / Скрыть" */}
         <motion.div 
           layout
           initial={{ opacity: 0 }}
@@ -135,7 +134,7 @@ export default function FAQ() {
           <button
             onClick={() => {
               setShowAll(!showAll);
-              if (showAll) setOpenIndex(null); // Закрываем открытый вопрос при сворачивании списка
+              if (showAll) setOpenIndex(null);
             }}
             className="group flex items-center gap-3 px-8 py-4 bg-white border-2 border-blue-900 text-blue-900 rounded-full font-bold uppercase tracking-wider hover:bg-blue-900 hover:text-white transition-all duration-300 shadow-sm hover:shadow-lg"
           >

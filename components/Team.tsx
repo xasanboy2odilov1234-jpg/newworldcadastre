@@ -3,43 +3,45 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Данные сертификатов (названия и тексты взял с твоего скриншота)
-const certificatesData = [
+const teamMembers = [
   {
     id: 1,
-    title: "Лицензия",
-    description: "Официальное разрешение на осуществление геодезических и картографических работ. Гарантия законности всех процедур.",
-    image: "/cert-1.jpg", 
+    name: "Азиз Рахимов",
+    role: "Главный инженер-геодезист",
+    bio: "Опыт работы 12 лет. Руководит полевыми работами, специализируется на высокоточной топографической съемке сложных промышленных объектов.",
+    image: "/team-1.jpg", 
   },
   {
     id: 2,
-    title: "Допуск СРО",
-    description: "Свидетельство о допуске к работам по инженерным изысканиям, оказывающим влияние на безопасность объектов капитального строительства.",
-    image: "/cert-2.jpg",
+    name: "Тимур Исмаилов",
+    role: "Старший кадастровый инженер",
+    bio: "Опыт работы 8 лет. Эксперт по оформлению технической документации и успешному решению юридических споров по границам участков.",
+    image: "/team-2.jpg",
   },
   {
     id: 3,
-    title: "Аттестат инженера",
-    description: "Действующий квалификационный аттестат главного кадастрового инженера, подтверждающий профильную экспертизу и опыт.",
-    image: "/cert-3.jpg",
+    name: "Сардор Алиев",
+    role: "Специалист по аэрофотосъемке",
+    bio: "Опыт работы 6 лет. Профессиональный пилот промышленных дронов, создает высокоточные 3D-модели и ортофотопланы огромных территорий.",
+    image: "/team-3.jpg",
   }
 ];
 
-export default function Certificates() {
+export default function Team() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
 
   // Функции переключения слайдов
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === certificatesData.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev === teamMembers.length - 1 ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? certificatesData.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev === 0 ? teamMembers.length - 1 : prev - 1));
   };
 
-  // Обработчики свайпов для мобильных устройств
+  // Обработчики свайпов для телефонов
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientX);
   };
@@ -57,28 +59,29 @@ export default function Certificates() {
     if (isLeftSwipe) nextSlide();
     if (isRightSwipe) prevSlide();
 
+    // Сброс значений
     setTouchStart(0);
     setTouchEnd(0);
   };
 
   return (
-    <section id="certificates" className="py-24 bg-white px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="team" className="py-24 bg-gray-50 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
         {/* Заголовок */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl md:text-5xl font-black text-blue-900 mb-4 tracking-tight uppercase">
-            Лицензии и <span style={{ color: '#D4AF37' }}>сертификаты</span>
+            Команда <span style={{ color: '#D4AF37' }}>экспертов</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg px-4">
-            Официальное подтверждение нашей квалификации. Мы несем полную юридическую ответственность за каждый выданный документ.
+            Надежность компании измеряется профессионализмом ее сотрудников. Познакомьтесь с инженерами, которые будут вести ваш проект.
           </p>
         </div>
 
         {/* Слайдер */}
         <div className="relative max-w-md mx-auto">
           
-          {/* Контейнер карточки */}
+          {/* Контейнер для карточки со свайпом */}
           <div 
             className="relative overflow-hidden rounded-[2rem] shadow-xl border border-gray-100 bg-white"
             onTouchStart={handleTouchStart}
@@ -93,32 +96,34 @@ export default function Certificates() {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                {/* Изображение сертификата */}
-                <div className="relative w-full aspect-[3/4] bg-gray-50 p-6 sm:p-8 flex items-center justify-center">
+                {/* Фотография */}
+                <div className="relative w-full aspect-[4/5] bg-gray-200">
                   <img
-                    src={certificatesData[currentIndex].image}
-                    alt={certificatesData[currentIndex].title}
-                    className="w-full h-full object-contain filter drop-shadow-md"
+                    src={teamMembers[currentIndex].image}
+                    alt={teamMembers[currentIndex].name}
+                    className="w-full h-full object-cover object-top"
                   />
-                  {/* Декоративная линия */}
-                  <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-900 to-transparent opacity-20" />
+                  <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" />
                 </div>
 
                 {/* Текстовая часть */}
-                <div className="p-8 text-center">
-                  <h3 className="text-2xl font-black text-blue-900 mb-2 uppercase tracking-wide">
-                    {certificatesData[currentIndex].title}
+                <div className="p-8 text-center sm:text-left">
+                  <h3 className="text-2xl font-black text-blue-900 mb-1 uppercase tracking-wide">
+                    {teamMembers[currentIndex].name}
                   </h3>
-                  <div className="w-12 h-0.5 bg-[#D4AF37] mb-4 mx-auto" />
+                  <p className="text-[#D4AF37] font-bold text-sm uppercase tracking-widest mb-4">
+                    {teamMembers[currentIndex].role}
+                  </p>
+                  <div className="w-12 h-0.5 bg-[#D4AF37] mb-4 mx-auto sm:mx-0" />
                   <p className="text-gray-600 leading-relaxed text-sm">
-                    {certificatesData[currentIndex].description}
+                    {teamMembers[currentIndex].bio}
                   </p>
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Стрелки навигации (ПК) */}
+          {/* Стрелки навигации (Для ПК) */}
           <button 
             onClick={prevSlide}
             className="absolute top-1/2 -left-4 sm:-left-16 transform -translate-y-1/2 bg-white/80 hover:bg-white text-blue-900 w-12 h-12 rounded-full flex items-center justify-center shadow-lg border border-gray-100 transition-all z-10 backdrop-blur-sm hidden sm:flex focus:outline-none"
@@ -139,18 +144,18 @@ export default function Certificates() {
           
         </div>
 
-        {/* Индикаторы */}
+        {/* Индикаторы (Точки внизу) */}
         <div className="flex justify-center gap-3 mt-8">
-          {certificatesData.map((_, index) => (
+          {teamMembers.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`transition-all duration-300 rounded-full focus:outline-none ${
                 index === currentIndex 
-                  ? "w-8 h-2.5 bg-blue-900" 
+                  ? "w-8 h-2.5 bg-[#D4AF37]" 
                   : "w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400"
               }`}
-              aria-label={`Перейти к сертификату ${index + 1}`}
+              aria-label={`Перейти к слайду ${index + 1}`}
             />
           ))}
         </div>

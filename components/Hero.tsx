@@ -122,25 +122,25 @@ export default function Hero() {
             <span style={{ color: '#D4AF37' }}>уверенность</span>
           </h1>
 
-          {/* Описание корпорации / услуг */}
-          <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mb-8 sm:mb-12 font-medium leading-relaxed">
-            Полный цикл кадастровых услуг и геодезических изысканий в Узбекистане. Официально фиксируем сроки и стоимость в договоре, берем на себя все согласования с госорганами.
+      {/* Описание корпорации / услуг */}
+      <p className="text-gray-300 text-base sm:text-lg md:text-xl max-w-2xl mb-8 sm:mb-12 font-medium leading-relaxed">
+            Кадастровые и геодезические работы любой сложности. 
           </p>
 
           {/* Кнопки перемещения по сайту (Решает проблему длинного скролла на смартфонах) */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             <Link 
-              href="#services" 
+              href="/portfolio" 
               className="w-full sm:w-auto text-center bg-[#D4AF37] hover:bg-[#bfa232] text-black px-8 py-4 rounded-2xl font-bold uppercase tracking-wider transition-all duration-300 shadow-[0_4px_20px_rgba(212,175,55,0.25)] hover:shadow-[0_4px_25px_rgba(212,175,55,0.4)]"
             >
-              Открыть услуги
+              Наши услуги
             </Link>
             
             <Link 
-              href="#portfolio" 
+              href="/about" 
               className="w-full sm:w-auto text-center bg-transparent border-2 border-white/60 hover:border-white text-white hover:bg-white/10 px-8 py-4 rounded-2xl font-bold uppercase tracking-wider transition-all duration-300 backdrop-blur-sm"
             >
-              Смотреть галерею
+              О компании
             </Link>
           </div>
         </motion.div>

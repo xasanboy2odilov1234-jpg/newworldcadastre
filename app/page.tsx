@@ -1,35 +1,27 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
-import Process from "@/components/Process";
-import Portfolio from "@/components/Portfolio";
-import Gallery from "@/components/Gallery";
-import Certificates from "@/components/Certificates";
-import FAQ from "@/components/FAQ";
+import FAQ from "@/components/FAQ"; // <-- Вернули импорт
 import ContactForm from "@/components/ContactForm";
 import Contacts from "@/components/Contacts";
+import ChatButton from "@/components/ChatButton";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-white">
+    <main className="flex min-h-screen flex-col bg-white relative">
       <Navigation />
+      
       <Hero />
       <Stats />
       
-      {/* Сначала показываем процесс работы / услуги */}
-      <Process /> 
+      {/* Вернули блок с вопросами на законное место */}
+      <FAQ /> 
       
-      {/* Затем подкрепляем это реальными проектами и видео */}
-      <Portfolio />
-      <Gallery />
-      
-      {/* Добиваем доверие лицензиями */}
-      <Certificates />
-      
-      {/* Снимаем вопросы и закрываем на заявку */}
-      <FAQ />
       <ContactForm />
       <Contacts />
+      
+      {/* Плавающая золотая кнопка чата */}
+      <ChatButton />
     </main>
   );
 }

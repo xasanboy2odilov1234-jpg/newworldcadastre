@@ -1,15 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // Импортируем хук для отслеживания страниц
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/components/LanguageContext";
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
-  // Получаем текущий путь. Если он равен "/", значит мы на главной
+  const { language, setLanguage, t } = useLanguage();
+
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -25,6 +27,8 @@ export default function Navigation() {
 
   const linkStyles = "text-gray-700 hover:text-blue-900 font-bold transition whitespace-nowrap text-lg xl:text-base";
 
+  if (!t || !t.nav) return null;
+
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
@@ -33,11 +37,9 @@ export default function Navigation() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col">
         
-        {/* Основная строка шапки (Логотип, Меню, Языки) */}
         <div className="flex items-center justify-between gap-4 w-full">
           
-          {/* Логотип */}
-          <Link href="/" onClick={closeMenu} className="flex items-center gap-2 md:gap-4 transition-opacity hover:opacity-80 shrink-0">
+          <Link href="/" prefetch={false} onClick={closeMenu} className="flex items-center gap-2 md:gap-4 transition-opacity hover:opacity-80 shrink-0">
             <img src="/logo.png" alt="New World Cadastre Logo" className="h-12 sm:h-16 md:h-20 w-auto object-contain mix-blend-multiply shrink-0" />
             <div className="flex flex-col justify-center">
               <span className="text-blue-900 font-black text-sm sm:text-lg md:text-xl lg:text-2xl leading-none tracking-wide whitespace-nowrap">
@@ -49,21 +51,29 @@ export default function Navigation() {
             </div>
           </Link>
 
-          {/* Десктопное меню */}
           <nav className="hidden xl:flex items-center gap-8 shrink-0">
-            <Link href="/" className={linkStyles}>Главная</Link>
-            <Link href="/portfolio" className={linkStyles}>Услуги и Проекты</Link>
-            <Link href="/about" className={linkStyles}>О компании</Link>
-            <Link href="/#faq" className={linkStyles}>Вопросы</Link>
-            <Link href="/#contacts" className={linkStyles}>Контакты</Link>
+            <Link href="/" prefetch={false} className={linkStyles}>{t.nav.home}</Link>
+            <Link href="/portfolio" prefetch={false} className={linkStyles}>{t.nav.services}</Link>
+            <Link href="/about" prefetch={false} className={linkStyles}>{t.nav.about}</Link>
+            <Link href="/#faq" prefetch={false} className={linkStyles}>{t.nav.faq}</Link>
+            <Link href="/#contacts" prefetch={false} className={linkStyles}>{t.nav.contacts}</Link>
           </nav>
 
-          {/* Переключатель языков и Бургер */}
           <div className="flex items-center gap-4 shrink-0">
             <div className="flex items-center gap-1 text-xs sm:text-sm font-bold">
-              <span className="text-gray-400 cursor-pointer hover:text-blue-900 transition-colors">UZ</span>
+              <span 
+                onClick={() => setLanguage('uz')}
+                className={`cursor-pointer transition-colors ${language === 'uz' ? 'text-blue-900' : 'text-gray-400 hover:text-blue-900'}`}
+              >
+                UZ
+              </span>
               <span className="text-gray-300 mx-1">|</span>
-              <span className="text-blue-900 cursor-pointer">RU</span>
+              <span 
+                onClick={() => setLanguage('ru')}
+                className={`cursor-pointer transition-colors ${language === 'ru' ? 'text-blue-900' : 'text-gray-400 hover:text-blue-900'}`}
+              >
+                RU
+              </span>
             </div>
             
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="xl:hidden text-blue-900 cursor-pointer p-2 focus:outline-none bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
@@ -76,7 +86,6 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Кнопка "Назад" (Показывается ТОЛЬКО на второй и третьей странице) */}
         {!isHome && (
           <motion.div 
             initial={{ opacity: 0, height: 0 }}
@@ -85,28 +94,28 @@ export default function Navigation() {
           >
             <Link 
               href="/" 
+              prefetch={false}
               className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-gray-400 hover:text-[#D4AF37] transition-colors uppercase tracking-widest"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-3.5 h-3.5 sm:w-4 sm:h-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>
-              На главную
+              {t.nav.backToHome}
             </Link>
           </motion.div>
         )}
 
       </div>
 
-      {/* Мобильное меню */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }} className="xl:hidden bg-white border-t border-gray-100 overflow-hidden shadow-lg">
             <nav className="flex flex-col px-6 py-6 gap-6">
-              <Link href="/" onClick={closeMenu} className={linkStyles}>Главная</Link>
-              <Link href="/portfolio" onClick={closeMenu} className={linkStyles}>Услуги и Проекты</Link>
-              <Link href="/about" onClick={closeMenu} className={linkStyles}>О компании</Link>
-              <Link href="/#faq" onClick={closeMenu} className={linkStyles}>Вопросы</Link>
-              <Link href="/#contacts" onClick={closeMenu} className={linkStyles}>Контакты</Link>
+              <Link href="/" prefetch={false} onClick={closeMenu} className={linkStyles}>{t.nav.home}</Link>
+              <Link href="/portfolio" prefetch={false} onClick={closeMenu} className={linkStyles}>{t.nav.services}</Link>
+              <Link href="/about" prefetch={false} onClick={closeMenu} className={linkStyles}>{t.nav.about}</Link>
+              <Link href="/#faq" prefetch={false} onClick={closeMenu} className={linkStyles}>{t.nav.faq}</Link>
+              <Link href="/#contacts" prefetch={false} onClick={closeMenu} className={linkStyles}>{t.nav.contacts}</Link>
             </nav>
           </motion.div>
         )}

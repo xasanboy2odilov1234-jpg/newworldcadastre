@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/components/LanguageContext"; // Импортируем наш провайдер языков
 
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"], // Добавили кириллицу для правильного отображения текстов
   weight: ["400", "500", "600", "700"],
 });
 
@@ -12,14 +13,20 @@ export const metadata: Metadata = {
   title: "New World Cadastre | Кадастровые услуги",
   description: "Профессиональные кадастровые, топографические и геодезические услуги.",
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+    <html lang="ru" className={`${inter.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col font-sans">
+        {/* Оборачиваем всё приложение в LanguageProvider */}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
+      </body>
     </html>
   );
 }

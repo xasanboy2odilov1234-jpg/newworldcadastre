@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/components/LanguageContext";
 
 export default function Gallery() {
-  const videoId = "n74QZKWJ440";
+  const videoId = "-3htB3yDM54";
   const { t } = useLanguage();
   if (!t || !t.gallery) return null;
 

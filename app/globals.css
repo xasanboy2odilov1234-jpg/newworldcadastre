@@ -3,21 +3,86 @@
 :root {
   --background: #ffffff;
   --foreground: #0c2340;
-  --cadastre-white: #ffffff;
-  --cadastre-blue: #0c2340;
-  --cadastre-blue-muted: #1a3a5c;
-  --cadastre-gold: #c9a227;
-  --cadastre-gold-muted: #b8921f;
+
+  /* --- Ink / Authority (headings, primary brand) --- */
+  --ink-950: #0a1628;
+  --ink-900: #0c2340;
+  --ink-800: #123354;
+  --ink-700: #1a3a5c;
+  --ink-600: #2f5273;
+
+  /* --- Paper / Surfaces --- */
+  --paper: #ffffff;
+  --paper-soft: #f7f8fa;
+  --paper-muted: #eef1f5;
+
+  /* --- Slate / Text hierarchy --- */
+  --slate-600: #56606e;
+  --slate-500: #6b7684;
+  --slate-400: #93a0af;
+  --slate-200: #dde3e9;
+
+  /* --- Gold / Accent (CTAs, highlights) --- */
+  --gold-600: #b8922e;
+  --gold-500: #c9a227;
+  --gold-400: #d4af37;
+  --gold-100: #f5edd6;
+
+  /* --- Legacy aliases (kept for backwards compatibility) --- */
+  --cadastre-white: var(--paper);
+  --cadastre-blue: var(--ink-900);
+  --cadastre-blue-muted: var(--ink-700);
+  --cadastre-gold: var(--gold-500);
+  --cadastre-gold-muted: var(--gold-600);
+
+  /* --- Floating card shadows (navy-tinted, soft, premium) --- */
+  --shadow-card-sm: 0 1px 2px 0 rgba(12, 35, 64, 0.04),
+    0 1px 1px 0 rgba(12, 35, 64, 0.03);
+  --shadow-card-md: 0 8px 24px -4px rgba(12, 35, 64, 0.1),
+    0 2px 6px -2px rgba(12, 35, 64, 0.06);
+  --shadow-card-lg: 0 20px 40px -8px rgba(12, 35, 64, 0.14),
+    0 8px 16px -4px rgba(12, 35, 64, 0.08);
+  --shadow-card-xl: 0 32px 64px -12px rgba(12, 35, 64, 0.18),
+    0 12px 24px -6px rgba(12, 35, 64, 0.1);
+  --shadow-gold-glow: 0 10px 24px -6px rgba(201, 162, 39, 0.35);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-ink-950: var(--ink-950);
+  --color-ink-900: var(--ink-900);
+  --color-ink-800: var(--ink-800);
+  --color-ink-700: var(--ink-700);
+  --color-ink-600: var(--ink-600);
+
+  --color-paper: var(--paper);
+  --color-paper-soft: var(--paper-soft);
+  --color-paper-muted: var(--paper-muted);
+
+  --color-slate-600: var(--slate-600);
+  --color-slate-500: var(--slate-500);
+  --color-slate-400: var(--slate-400);
+  --color-slate-200: var(--slate-200);
+
+  --color-gold-600: var(--gold-600);
+  --color-gold-500: var(--gold-500);
+  --color-gold-400: var(--gold-400);
+  --color-gold-100: var(--gold-100);
+
   --color-cadastre-white: var(--cadastre-white);
   --color-cadastre-blue: var(--cadastre-blue);
   --color-cadastre-blue-muted: var(--cadastre-blue-muted);
   --color-cadastre-gold: var(--cadastre-gold);
   --color-cadastre-gold-muted: var(--cadastre-gold-muted);
+
+  --shadow-card-sm: var(--shadow-card-sm);
+  --shadow-card-md: var(--shadow-card-md);
+  --shadow-card-lg: var(--shadow-card-lg);
+  --shadow-card-xl: var(--shadow-card-xl);
+  --shadow-gold-glow: var(--shadow-gold-glow);
+
   --font-sans: var(--font-inter);
 }
 

@@ -15,7 +15,7 @@ export default function Contacts() {
   ];
 
   return (
-    <footer className="bg-[#0a0a0a] text-white pt-16 sm:pt-24 pb-8 border-t border-white/10 relative z-10">
+    <footer id="contacts" className="bg-[#0a0a0a] text-white pt-16 sm:pt-24 pb-8 border-t border-white/10 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-16 sm:mb-24">
           <h3 className="text-center text-sm sm:text-base font-bold text-gray-400 tracking-[0.2em] uppercase mb-8">{t.contacts.socialTitle}</h3>

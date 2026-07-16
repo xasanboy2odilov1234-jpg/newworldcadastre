@@ -2,7 +2,8 @@ import dynamic from 'next/dynamic';
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 
-// Ленивая загрузка для всех компонентов, кроме Hero (он на первом экране)
+// Lazy-load below-the-fold sections for a faster first paint
+const Calculator = dynamic(() => import('@/components/Calculator'));
 const Stats = dynamic(() => import('@/components/Stats'));
 const FAQ = dynamic(() => import('@/components/FAQ'));
 const ContactForm = dynamic(() => import('@/components/ContactForm'));
@@ -14,10 +15,13 @@ export default function Home() {
     <main className="flex min-h-screen flex-col bg-white relative">
       <Navigation />
       
-      {/* Hero грузится сразу, чтобы не было "мигания" при открытии сайта */}
+      {/* Hero loads immediately to avoid first-screen flicker */}
       <Hero />
       
-      {/* Эти блоки подгружаются только когда пользователь до них докрутит */}
+      {/* Conversion calculator — primary hook for reels / mobile traffic */}
+      <Calculator />
+
+      {/* Remaining blocks load as the user scrolls */}
       <Stats />
       <FAQ /> 
       <ContactForm />
